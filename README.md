@@ -1,7 +1,6 @@
 ## Esther Edwards
 #### Repo: 5373 Spatial DS
 #### Email: rephaeledwards@gmail.com
-#### Website: https://en.wikipedia.org/wiki/Albert_Einstein
 #### Image:
 ![Esther Edwards](https://lh3.googleusercontent.com/6Jgu-pBdKEkkJBL2FaCuYyEBwwklZXaJHHWwEARvCg-HmV-aLoxthoC4cBZrYGS3h_xUVDe3LqaMVYAQWDXkfEmYk1NnAwqkBxeLGJzH3JumOSFOo8lk46CwAZphvMzgVuHZmyoCmZ8FoZpxV8FdOPW6EOPHwjZ-hu0fbUHxNobau8KKOQmgDTxNS70sDG_hv-zykxfa0xqnyb7ZrTvUr1UI8iuNJdNfbUrh0D-NsqZvr7FQ4i9tgzgH4Y9dU8Ba36F3G3sFFIYAlAoBtvtujuUJ1DPfR0KhqvO7FKgkHW8OaGvzwkSlbXFtH2m3_-1HLMP9LP4gJstgXBkKnsVRi5hIZykO7gZ6ObQdRL3tfTdvbwX0uStMMhsbq1uYH1qvYBN8AuXDr0z6dE2NzmnoNANp0ZCVx_HYDOGMVXWyL_BBRsXyQflAr5n1eNk-uHkRJXrSM1z2mlpVxPx7Gw5My7k4xrB6eoHhHwY5P573e_HQPc56kjJ0ZlP87xuKId9IM2_ZxCXjdd5TbmG_ly1hmXzmKdyowJtOx-8sVb06XslbwdLF_Gp9f0NukW0fNM1SYR0lWFMf7ILXmjp_A4vjl8dhP3c6x9VFH4sRvbpoykW_1EiS_Zjioo_IDTbeJK6LfCoFMOErV1ZK7cDHwtJNHENQ2_u_O9m1Mn9lyMYaFNuWcmkexpUVvzF5K8yvlQ=w313-h369-no?authuser=0)
 #### Avatar:
