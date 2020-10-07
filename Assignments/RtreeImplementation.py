@@ -1,5 +1,8 @@
 """ Code Provided by Dr. Terry Griffin
+<<<<<<< HEAD
 Edited by Rephael Edwards
+=======
+>>>>>>> 20a16505dd743f4cf712e1fb0a36f2eda49955ac
 flask_folium_02.py
 
     Required packages:
