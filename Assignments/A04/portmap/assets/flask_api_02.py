@@ -405,7 +405,18 @@ def railroads():
                             results.append(coords)
                 railroadsCollection["geometry"]["coordinates"] = results
     return railroadsCollection
-      
+
+@app.route('/fileUpload/', methods=["POST"])
+def uploadJson():
+    """ Description: return a bounding box for json data
+        Params: 
+            None
+        Example: http://localhost:8080/fileUpload/
+    """
+    reqData = request.get_json()
+    print(request)
+    
+    return handle_response(len(reqData))      
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8080,debug=True)

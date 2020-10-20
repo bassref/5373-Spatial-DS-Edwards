@@ -871,48 +871,22 @@
                 <div class="modal-body">
                     <!-- submit the file -->
                     <div style="vertical-align:top;">
-                        <p style="font-size: 12px"><i class="far fa-file-code"></i> Enter or Upload a File to Diplay:</p>
-                        <input type="text" id='fileInfo' style="font-size: 11px; padding: 2px; margin:2px" placeholder="File"><br>
-                        <input type="file" id="file-selector" multiple>
-                        <!-- The `multiple` attribute lets users select multiple files. -->
-                        <script>
-                            const fileSelector = document.getElementById('file-selector');
-                            fileSelector.addEventListener('change', (event) => {
-                                const fileList = event.target.files;
-                                console.log(fileList);
-                            });
-                        </script>
-                        <input type="file" id="file-selector" accept=".geojson">
+                        <textarea rows="30" cols="25" id="jsonInput"></textarea>
                         <div style=" padding-top:10px ">
                             <input type="button" value="Submit" id="submitFile" style="font-size: 10px; ">
                             <input type="button" value="Clear" id="clearBox" style="font-size: 10px; ">
                         </div>
                         <script>
-                            function getMetadataForFileList(fileList) {
-                                let errorMsg = " ";
-                                for (const file of fileList) {
-                                    // Not supported in Safari for iOS. 
-                                    const name = file.name ? file.name : 'NOT SUPPORTED';
-                                    // Not supported in Firefox for Android or Opera for Android. 
-                                    const type = file.type ?
-                                        file.type : 'NOT SUPPORTED';
-                                    // Unknown cross-browser support. 
-                                    const size = file.size ? file.size : 'NOT SUPPORTED';
-                                    console.log({
-                                        file,
-                                        name,
-                                        type,
-                                        size
-                                    });
-                                    answerBox = document.getElementById('errorMsg');
-                                    answerBox.innerHTML = '<p>'
-                                    '</p>';
+                            $.ajax({
+                                type: "POST",
+                                url: "http://localhost:8080/fileUpload/",
+                                data: $("#jsonInput").val(),
+                                success: function(results) {
+                                    console.log(results);
                                 }
-                            }
+                            });
                         </script>
                     </div>
-
-
 
                     <br/>
                     <hr>
@@ -931,13 +905,14 @@
             <div class="modal-content ">
                 div class="modal-header ">
                 <button type="button " class="close " data-dismiss="modal ">&times;      </button>
-                <h4 class="modal-title "><i class="fa fa-fw fa-gavel "></i>&nbsp;Disclaimer</h4> div>
-                </ <div class="modal-body ">
-                This is a combiation of my work and code found online. Do not use it as gospel. p /div>
-                < <div class="modal-footer ">
-                    <button type="button " class="btn btn-default " data-d smiss="modal ">Close</button>
+                <h4 class="modal-title "><i class="fa fa-fw fa-gavel "></i>&nbsp;Disclaimer</h4>
             </div>
-    </div>
+            <div class="modal-body ">
+                This is a combiation of my work and code found online. Do not use it as gospel. p /div>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-default " data-d smiss="modal ">Close</button>
+                </div>
+            </div>
     </div>
     </div>
 
