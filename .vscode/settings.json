@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/Users/rephaeledwards/.pyenv/versions/3.7.3/bin/python",
+    "python.pythonPath": "C:\\Users\\Reph\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
     "extensions.ignoreRecommendations": true,
     "files.autoSave": "off",
     "typescript.tsc.autoDetect": "off",
