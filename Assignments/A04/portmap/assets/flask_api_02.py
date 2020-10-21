@@ -105,7 +105,7 @@ def load_data(path):
     _, ftype = os.path.splitext(path)   # get fname (_), and extenstion (ftype)
   
     if os.path.isfile(path):            # is it a real file?
-        with open(path) as f:
+        with open(path,  "r", encoding="utf-8") as f:
             
             if ftype == ".json" or ftype == ".geojson" :        # handle json
                 data = f.read()
