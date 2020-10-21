@@ -49,8 +49,36 @@ exportView.onclick = function(e) {
 //Check a text box to see if the information entered is in json format
 //
 $("#submitFile").click(function(event) {
+    var textData = getElementById.val();
+    //uploadJson();
+    // convert it to json format
+    textData = JSON.parse(textData);
+    if (/^[\],:{}\s]*$/.test(textData.replace(/\\["\\\/bfnrtu]/g, '@').
+replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) 
+{
+    //plot the file
+    map.addSource('point', {
+        'type': 'geojson',
+        'data': json
+    });
+    map.addLayer({
+        'id': 'points',
+        'source': 'point',
+        'type': 'circle',
+        'paint': {
+            'circle-radius': 6,
+            'circle-color': '#B42222'
+        }
+    });
 
-    uploadJson();
+}else{
+
+  //give message
+  jsonInput.getElementById.value='';
+  jsonInput.getElementById("Not a valid Json file");
+
+}
 
 });
 

@@ -1,0 +1,21 @@
+@app.route('/fileUpload/', methods=["POST"])
+def uploadJson():
+    """ Description: return a bounding box for json data
+        Params: 
+            None
+        Example: http://localhost:8080/fileUpload/
+        '''url params'''
+        '''raw data'''
+        '''ummm files'''
+        '''both post and get form data'''
+    """
+    print(f"args: {request.args}") 
+    print(f"data: {request.data}")	
+    print(f"files: {request.files}")  
+    print(f"value: {request.values}")	
+    print(f"json: {request.json}")	
+    print(f"form: {request.form}") 
+    print(request.get_data())
+    print(request.get_json())
+
+​    return handle_response(request.json)  

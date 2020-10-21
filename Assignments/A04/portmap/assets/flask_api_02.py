@@ -1,5 +1,3 @@
-"""#!/Users/rephaeledwards/.pyenv/versions/3.8.0/bin/python"""
-#!/Users/rephaeledwards/.pyenv/versions/3.7.3/lib/python3.7
 """
 Code provided by Dr. Terry Griffin
 Edited by Rephael Edwards
@@ -11,7 +9,8 @@ import json
 from flask import Flask,  url_for
 from flask import request
 from flask import jsonify
-from flask_cors import CORS
+from flask import make_response
+from flask_cors import CORS, cross_origin
 from flask import send_file
 import glob
 import csv
@@ -23,7 +22,8 @@ from rtree import index
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}}) #new
+
 
 """
   _   _ _____ _     ____  _____ ____
@@ -141,7 +141,7 @@ def move_point(p,distance,feet=False):
 def build_index():
     #(left, bottom, right, top)
     eqks = glob.glob("Data/earthquake_data/earthquakes/*.json")
-    del eqks[250:840]
+    del eqks[150:840]
     count = 0
     bad = 0
     earthqUniqueId = {}
@@ -179,7 +179,7 @@ def build_index():
     return idx, earthqUniqueId 
 
 def nearestNeighbors(lng, lat):
-    railroadsCollection = {
+    earthquakesCollection = {
         "type":"FeatureCollection",
        "features":[]
     }
@@ -197,12 +197,35 @@ def nearestNeighbors(lng, lat):
             'properties':rtreeid[item]['properties']
         })
     # add the list to a dictionary
-    railroadsCollection['features'] =nearestList
+    earthquakesCollection['features'] =nearestList
     # convert into JSON:
-    convertedGeoJson = json.dumps(railroadsCollection)
+    convertedGeoJson = json.dumps(earthquakesCollection)
     # returns a JSON file
     return convertedGeoJson
-   
+
+def constellationList():
+    constellationCollection = {
+        "type":"FeatureCollection",
+       "features":[]
+    }
+    idx,rtreeid = build_index()
+    left, bottom, right, top = point_to_bbox(lng,lat)
+    nearest = list(idx.nearest(( left, bottom, right, top ),2))
+    constellList = []
+    # add the information needed to a list
+    # to create a json file
+    for item in nearest:
+        constellList.append({
+            'type':'Feature',
+            'geometry':rtreeid[item]['geometry'],
+            'properties':rtreeid[item]['properties']
+        })
+    # add the list to a dictionary
+    constellationCollection['features'] =constellList
+    # convert into JSON:
+    convertedJson = json.dumps(constellationCollection)
+    # returns a JSON file
+    return convertedJson   
 
 """
   ____    _  _____  _      ____    _    ____ _  _______ _   _ ____
@@ -217,7 +240,8 @@ Helper classes to act as our data backend.
 STATES = load_data("Data/countries_states/states.json")
 STATE_BBOXS = load_data("Data/us_states_bbox.csv")
 CITIES = load_data("Data/countries_states/major_cities.geojson")
-RAILROADS = load_data("Data/us_railroads/us_railroads_with_states0.geojson")
+RAILROADS = load_data("Data/us_railroads/us_railroads_with_states0.geojson/us_railroads_with_states0.geojson")
+CONSTELLS = load_data("Data/constellations.json")
 
 """
    ____   ___  _   _ _____ _____ ____  
@@ -299,6 +323,21 @@ def states():
         results = STATES
 
     return handle_response(results)
+
+@app.route('/constellations', methods=["GET"])
+def constellations():
+    """ Description: return a list of constellation points
+        Params: 
+            None
+        Example: http://localhost:8080/constellations?
+    """
+   
+    results = []
+    for item in CONSTELLS:
+        results.append(["coordinates"])
+        console.log(["coordinates"])
+
+    return results
 
 @app.route('/state_bbox/', methods=["GET"])
 def state_bbox():
@@ -406,17 +445,8 @@ def railroads():
                 railroadsCollection["geometry"]["coordinates"] = results
     return railroadsCollection
 
-@app.route('/fileUpload/', methods=["POST"])
-def uploadJson():
-    """ Description: return a bounding box for json data
-        Params: 
-            None
-        Example: http://localhost:8080/fileUpload/
-    """
-    reqData = request.get_json()
-    print(request)
-    
-    return handle_response(len(reqData))      
+
+
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8080,debug=True)
