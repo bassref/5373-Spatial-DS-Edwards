@@ -141,7 +141,7 @@ def move_point(p,distance,feet=False):
 def build_index():
     #(left, bottom, right, top)
     eqks = glob.glob("Data/earthquake_data/earthquakes/*.json")
-    del eqks[150:840]
+    del eqks[300:840]
     count = 0
     bad = 0
     earthqUniqueId = {}
@@ -185,7 +185,7 @@ def nearestNeighbors(lng, lat):
     }
     idx,rtreeid = build_index()
     left, bottom, right, top = point_to_bbox(lng,lat)
-    nearest = list(idx.nearest(( left, bottom, right, top ),2))
+    nearest = list(idx.nearest(( left, bottom, right, top ),5))
     print (nearest)
     nearestList = []
     # add the information needed to a list
@@ -198,6 +198,31 @@ def nearestNeighbors(lng, lat):
         })
     # add the list to a dictionary
     earthquakesCollection['features'] =nearestList
+    # convert into JSON:
+    convertedGeoJson = json.dumps(earthquakesCollection)
+    # returns a JSON file
+    return convertedGeoJson
+
+def intersection(left, bottom, right, top ):
+    earthquakesCollection = {
+        "type":"FeatureCollection",
+       "features":[]
+    }
+    idx,rtreeid = build_index()
+  
+    intersection = list(idx.intersection(( left, bottom, right, top ))
+    print (intersection)
+    intersectionList = []
+    # add the information needed to a list
+    # to create a json file
+    for item in nearest:
+        intersectionList.append({
+            'type':'Feature',
+            'geometry':rtreeid[item]['geometry'],
+            'properties':rtreeid[item]['properties']
+        })
+    # add the list to a dictionary
+    earthquakesCollection['features'] =intersectionList
     # convert into JSON:
     convertedGeoJson = json.dumps(earthquakesCollection)
     # returns a JSON file
@@ -323,6 +348,16 @@ def states():
         results = STATES
 
     return handle_response(results)
+
+@app.route('/intersections/', methods=["GET"])
+def intersect():
+    """ Description: returns intersections
+        Params: bounding box
+            None
+        Example: http://localhost:8080/intersections?lnglat=mis
+    """
+    left,bottom,right,top = request.args.get("lnglat",None).split(",") 
+    return intersection(float(left),float(bottom),float(right),float(bottom))
 
 @app.route('/constellations', methods=["GET"])
 def constellations():

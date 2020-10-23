@@ -53,32 +53,29 @@ $("#submitFile").click(function(event) {
     //uploadJson();
     // convert it to json format
     textData = JSON.parse(textData);
-    if (/^[\],:{}\s]*$/.test(textData.replace(/\\["\\\/bfnrtu]/g, '@').
-replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
-replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) 
-{
-    //plot the file
-    map.addSource('point', {
-        'type': 'geojson',
-        'data': json
-    });
-    map.addLayer({
-        'id': 'points',
-        'source': 'point',
-        'type': 'circle',
-        'paint': {
-            'circle-radius': 6,
-            'circle-color': '#B42222'
-        }
-    });
+    if (/^[\],:{}\s]*$/.test(textData.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+        //plot the file
+        map.addSource('point', {
+            'type': 'geojson',
+            'data': json
+        });
+        map.addLayer({
+            'id': 'points',
+            'source': 'point',
+            'type': 'circle',
+            'paint': {
+                'circle-radius': 6,
+                'circle-color': '#B42222'
+            }
+        });
 
-}else{
+    } else {
 
-  //give message
-  jsonInput.getElementById.value='';
-  jsonInput.getElementById("Not a valid Json file");
+        //give message
+        jsonInput.getElementById.value = '';
+        jsonInput.getElementById("Not a valid Json file");
 
-}
+    }
 
 });
 
@@ -232,8 +229,10 @@ map.on('load', function() {
                         'paint': {
                             'circle-radius': 6,
                             'circle-color': '#B42222'
-                        }
+                        },
+
                     });
+                    addPolygonLayer(addPolygon(json));
                 })
             map.flyTo({
                 center: [enterLng, enterLat]
@@ -241,6 +240,64 @@ map.on('load', function() {
         });
     });
 });
+
+function addPolygon(json) {
+    var enveloped = turf.envelope(json);
+    return enveloped;
+}
+
+function addPolygonLayer(data) {
+    map.addSource('national-park', {
+        'type': 'geojson',
+        'data': data
+    });
+    map.addLayer({
+        'id': 'park-boundary',
+        'type': 'fill',
+        'source': 'national-park',
+        'paint': {
+            'fill-color': '#1d431b',
+            'fill-opacity': 0.4
+        },
+        'filter': ['==', '$type', 'Polygon']
+    });
+}
+
+var draws = new MapboxDraw({
+    displayControlsDefault: false,
+    controls: {
+        polygon: true,
+        trash: true
+    }
+});
+var drawing = document.getElementById('drawAppend2');
+drawing.appendChild(draws.onAdd(map)).setAttribute("style", "display: inline-flex;", "border: 0;");
+map.on('draw.create', updateArea);
+
+function updateArea(e) {
+    var data = draw.getAll();
+    var coords = turf.meta.coordAll(data);
+    var line = turf.lineString(coords);
+    var bbox = turf.bbox(line);
+    $.getJSON("http://localhost:8080/intersections?lnglat=" + bbox)
+        .done(function(json) {
+
+            map.addSource('pointed', {
+                'type': 'geojson',
+                'data': json
+            });
+            map.addLayer({
+                'id': 'pointed',
+                'source': 'pointed',
+                'type': 'circle',
+                'paint': {
+                    'circle-radius': 6,
+                    'circle-color': '#B42222'
+                },
+
+            });
+        })
+}
 
 // Coordinates Tool
 // Coordinates Tool
