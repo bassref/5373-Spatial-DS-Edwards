@@ -211,7 +211,7 @@ def intersection(left, bottom, right, top ):
     idx,rtreeid = build_index()
   
     intersection = list(idx.intersection(( left, bottom, right, top ))
-    print (intersection)
+    #print (intersection)
     intersectionList = []
     # add the information needed to a list
     # to create a json file
