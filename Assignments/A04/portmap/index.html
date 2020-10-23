@@ -223,10 +223,6 @@
                         <a class="clickable" data-toggle="modal" data-target="#nearestNeighborsModal" title="Search for Nearest Neighbors"><i class="fas fa-search-location"></i></a>
                     </li>
 
-                    <li>
-                        <!-- Clusters Button -->
-                        <a class="clickable" data-toggle="modal" data-target="#clustersModal" title="Highlights Clusters"><i class="fas fa-map-marked"></i></a>
-                    </li>
 
                     <li>
                         <!-- City Distance Modal -->
@@ -548,7 +544,7 @@
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="drawBbox"><i class="fas fa-draw-polygon"></i>&nbsp;Draw a Bounding Box</h4>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fas fa-draw-polygon"></i>&nbsp;Draw a Bounding Box</h4>
                     </div>
 
                     <div class="modal-body">
@@ -894,86 +890,7 @@
         </div>
     </div>
 
-    <!--  display uploaded geojson -->
-    <!--  display uploaded geojson -->
-    <!--  display uploaded geojson -->
-    <div class="modal left fade" id="displayGeojsonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"><i class="far fa-file-code"></i>&nbsp;Display geojson</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- submit the file -->
-                    <div style="vertical-align:top;">
-                        <textarea rows="30" cols="25" id="jsonInput"></textarea>
-                        <div style=" padding-top:10px ">
-                            <input type="button" value="Submit" id="submitFile" style="font-size: 10px; ">
-                            <input type="button" value="Clear" id="clearBox" style="font-size: 10px; ">
-                        </div>
-                    </div>
-                    <script>
-                        $.ajax({
-                            type: "POST",
-                            url: "http://localhost:8080/fileUpload/",
-                            data: $("#jsonInput").val(),
-                            success: function(results) {
-                                console.log(results);
-                                uploadFiles();
-                            }
-
-                        });
-                        $("#submitFile").click(function(event) {
-                            // Add an image to use as a custom marker
-                            map.loadImage(
-                                'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-                                function(error, image) {
-                                    if (error) throw error;
-                                    map.addImage('custom-marker', image);
-                                    // Add a GeoJSON source with 2 points
-                                    //for eachItem in jsonInput
-                                    map.addSource('points', {
-                                            'type': 'geojson',
-                                            'data': {
-                                                'type': 'FeatureCollection',
-                                                'features': [{
-                                                    // feature for Mapbox DC
-                                                    'type': 'Feature',
-                                                    'geometry': {
-                                                        'type': 'Point',
-                                                        'coordinates': [
-                                                            lng,
-                                                            lat
-                                                        ]
-                                                    },
-                                                    'properties': {
-                                                        'title': 'Mapbox DC'
-                                                    }
-                                                }, {
-                                                    // feature for Mapbox SF
-                                                    'type': 'Feature',
-                                                    'geometry': {
-                                                        'type': 'Point',
-                                                        'coordinates': [lng, lat]
-                                                    },
-                                                    'properties': {
-                                                        'title': 'Mapbox SF'
-                                                    }
-                                                }]
-                                            }
-                                        }
-
-                                    )
-                                }
-                            )
-                        });
-                    </script>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- Disclaimer Modal -->
@@ -1042,14 +959,14 @@
     <!-- Layer Search Scripts -->
     <script src="assets/plugins/jsonSearch/chosen/chosen.jquery.js"></script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $("#json_layer").change(function() {
             $("#general_search").val("");
             $("#property-descr").html("<br />");
             var source_name = $('#json_layer').val();
             refreshJsonSource(source_name);
         });
-    </script>
+    </script> -->
 
 </body>
 

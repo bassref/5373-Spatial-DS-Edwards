@@ -119,7 +119,7 @@ def load_data(path):
                     return list(data)
     return None
 
-idx = index.Index()
+
 
 def validateJSON(jsonData):
     try:
@@ -183,7 +183,7 @@ def nearestNeighbors(lng, lat):
         "type":"FeatureCollection",
        "features":[]
     }
-    idx,rtreeid = build_index()
+   
     left, bottom, right, top = point_to_bbox(lng,lat)
     nearest = list(idx.nearest(( left, bottom, right, top ),5))
     print (nearest)
@@ -208,10 +208,9 @@ def intersection(left, bottom, right, top ):
         "type":"FeatureCollection",
        "features":[]
     }
-    idx,rtreeid = build_index()
-  
-    intersection = list(idx.intersection(( left, bottom, right, top ))
-    #print (intersection)
+   
+    intersection = list(idx.intersection(( left, bottom, right, top )))
+    print (intersection)
     intersectionList = []
     # add the information needed to a list
     # to create a json file
@@ -233,7 +232,7 @@ def constellationList():
         "type":"FeatureCollection",
        "features":[]
     }
-    idx,rtreeid = build_index()
+    
     left, bottom, right, top = point_to_bbox(lng,lat)
     nearest = list(idx.nearest(( left, bottom, right, top ),2))
     constellList = []
@@ -261,7 +260,8 @@ def constellationList():
 
 Helper classes to act as our data backend.
 """
-
+idx = index.Index()
+idx,rtreeid = build_index()  
 STATES = load_data("Data/countries_states/states.json")
 STATE_BBOXS = load_data("Data/us_states_bbox.csv")
 CITIES = load_data("Data/countries_states/major_cities.geojson")
