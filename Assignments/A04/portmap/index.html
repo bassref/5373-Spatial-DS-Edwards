@@ -115,6 +115,9 @@
         });
     </script>
 
+
+
+
     <!--initial load screen -->
     <div class="se-pre-con">
         <h2 style="text-align: center; margin-top:20%; color: white">
@@ -183,30 +186,12 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
 
-                    <li>
-                        <!-- Layer List Button -->
-                        <a class="clickable" data-toggle="modal" data-target="#layersModal" title="Layer List"><i class="fa fa-fw fa-list" id="list-load"></i></a>
-                    </li>
-
-                    <li>
-                        <!-- Layer Attributes -->
-                        <a class="clickable" data-toggle="modal" data-target="#attributesModal" title="Layer's Attributes"><i class="fa fa-fw fa-info"></i></a>
-                    </li>
-
-                    <li>
-                        <!-- Draw Button -->
-                        <a class="clickable" data-toggle="modal" data-target="#drawModal" title="Draw & Measure"><i class="fas fa-fw fa-pencil-alt"></i></a>
-                    </li>
 
                     <li>
                         <!-- Coordinates/Address Button -->
                         <a class="clickable" data-toggle="modal" data-target="#geolocationModal" title="Search Address & Coords."><i class="fas fa-fw fa-map-marker-alt"></i></a>
                     </li>
 
-                    <li>
-                        <!-- Search Button -->
-                        <a class="clickable" data-toggle="modal" data-target="#searchModal" title="Search Layer Attributes"><i class="fa fa-fw fa-search"></i></a>
-                    </li>
 
                     <li>
                         <!-- Print Map Button -->
@@ -223,7 +208,6 @@
                         <a class="clickable" data-toggle="modal" data-target="#nearestNeighborsModal" title="Search for Nearest Neighbors"><i class="fas fa-search-location"></i></a>
                     </li>
 
-
                     <li>
                         <!-- City Distance Modal -->
                         <a class="clickable" data-toggle="modal" data-target="#cityDistanceModal" title="Distance Between Cities"><i class="fas fa-ruler"></i></a>
@@ -237,6 +221,11 @@
                     <li>
                         <!-- Display Geojn -->
                         <a class="clickable" data-toggle="modal" data-target="#displayGeojsonModal" title="Display A geojson file"><i class="far fa-file-code"></i></a>
+                    </li>
+
+                    <li>
+                        <!-- Delete Layers Button -->
+                        <a class="clickable" data-toggle="modal" data-target="#deleteLayersModal" title="Delete Layers"><i class="far fa-trash-alt"></i></a>
                     </li>
                 </ul>
             </div>
@@ -296,6 +285,7 @@
         <!-- Draw Modal -->
         <!-- Draw Modal -->
         <!-- Draw Modal -->
+        <!-- 
         <div class="modal left fade" id="drawModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -342,7 +332,8 @@
                         <hr style="margin-top: 15px">
                         <br />
 
-                        <!--Text Tool-->
+                        Text Tool-->
+        <!-- 
                         <p style="font-size: 12px"><i class="fas fa-align-left"></i> Add and edit text on the map:</p>
 
                         <div style="display: inline-flex; width: 100%">
@@ -363,8 +354,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div> 
+    -->
         <!-- Search Modal -->
         <!-- Search Modal -->
         <!-- Search Modal -->
@@ -398,8 +389,6 @@
                                 }
                             });
                         </script>
-
-
 
                     </div>
                 </div>
@@ -575,7 +564,6 @@
                         <br />
                         <hr>
                         <br />
-
                         <!-- enter lng/lat -->
                         <div style="vertical-align:top;">
                             <p style="font-size: 12px"><i class="fas fa-map-marked-alt"></i> Enter Coordinates to find neighbors</p>
@@ -793,8 +781,7 @@
                         <div style="display: inline-flex;" id="">
                             <input type="search" id="pickState" placeholder="State" />
                             <br />
-                            <button class="clickable" type="submit" id="searchState">
-                                <i class=" fa fa-search "></i></button>
+
                             <button class="clickable " type="submit " id="clearState ">
                                 <i class="fa fa-eraser "></i></button>
                         </div>
@@ -890,7 +877,122 @@
         </div>
     </div>
 
+    <!--  display uploaded geojson -->
+    <!--  display uploaded geojson -->
+    <!--  display uploaded geojson -->
+    <div class="modal left fade" id="displayGeojsonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="far fa-file-code"></i>&nbsp;Display geojson</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- submit the file -->
+                    <div style="vertical-align:top;">
+                        <textarea rows="30" cols="25" id="jsonInput"></textarea>
+                        <div style=" padding-top:10px ">
+                            <input type="button" value="Submit" id="submitFile" style="font-size: 10px; ">
+                            <input type="button" value="Clear" id="clearBox" style="font-size: 10px; ">
+                        </div>
+                    </div>
+                    <script type="text/javascript" src="data.json"></script>
+                    <script>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  Delete Layers -->
+    <!--  Delete Layers -->
+    <!--  Delete Layers -->
+    <div class="modal left fade" id="deleteLayersModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="far fa-trash-alt"></i>&nbsp;Delete Layers</h4>
+                </div>
+                <div class="modal-body">
+                    <br />
+                    <hr>
+                    <br />
+                    <!-- enter lng/lat -->
+                    <div style="vertical-align:top;">
+                        <p style="font-size: 12px"><i class="far fa-trash-alt"></i></i> Select layers to be deleted</p>
+                        <div style="padding-top:10px">
+                            <input type="checkbox" id="state" name="rrInState" value="RRInState">
+                            <label for="line"> Remove Railroad Search Layer</label><br>
+
+                            <input type="checkbox" id="polygons" name="polygons" value="Polygons">
+                            <label for="polygons"> Remove Polygons Layer</label><br>
+
+                            <input type="checkbox" id="latLong" name="latLong" value="LatLong">
+                            <label for="lineStrings"> Remove Find LatLong Layer</label><br>
+
+                            <input type="checkbox" id="nearestN" name="nearestN" value="NearestN">
+                            <label for="lineStrings"> Remove Find Nearest Layer</label><br>
+
+                            <input type="checkbox" id="distBet" name="disBet" value="DisBet">
+                            <label for="lineStrings"> Remove Distance Between Layer</label><br>
+
+                            <input type="button" value="Delete Selected Layers" id="deleteSelectedLayers" style="font-size: 10px;">
+                        </div>
+                    </div>
+                    <script>
+                        $("#deleteSelectedLayers").click(function(event) {
+
+                            var stateRR = document.getElementById("state");
+                            var latLon = document.getElementById("latLong");
+                            var polygon = document.getElementById("polygons");
+                            var findNearest = document.getElementById("points");
+                            var disBetween = document.getElementById("route");
+
+                            if (stateRR.checked == true) {
+                                if (map.getLayer("state")) {
+                                    map.removeLayer("state");
+                                    map.removeSource("state");
+                                }
+                            }
+
+                            if (latLon.checked == true) {
+                                if (map.getLayer("latLong")) {
+                                    map.removeLayer("latLong");
+                                    map.removeSource("latLong");
+                                }
+                            }
+
+                            if (polygon.checked == true) {
+                                if (map.getLayer("polygons")) {
+                                    map.removeLayer("polygons");
+                                    map.removeSource("polygons");
+                                }
+                            }
+
+                            if (findNearest.checked == true) {
+                                if (map.getLayer("points")) {
+                                    map.removeLayer("points");
+                                    map.removeSource("points");
+                                }
+                            }
+                            if (disBetween.checked == true) {
+                                if (map.getLayer("route")) {
+                                    map.removeLayer("route");
+                                    map.removeSource("route");
+                                }
+                            }
+
+                        });
+                    </script>
+                    <br />
+                    <hr>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Disclaimer Modal -->

@@ -1,5 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoicmVwaGllZCIsImEiOiJja2ZkMWoydnEwMXdmMnpudnF2Y3lkZmpnIn0.zdRxU3vwQy0QI2haoiTBzA';
 
+
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v9',
@@ -46,38 +47,7 @@ exportView.onclick = function(e) {
     e.preventDefault();
 }
 
-//Check a text box to see if the information entered is in json format
-//
-$("#submitFile").click(function(event) {
-    var textData = getElementById.val();
-    //uploadJson();
-    // convert it to json format
-    textData = JSON.parse(textData);
-    if (/^[\],:{}\s]*$/.test(textData.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
-        //plot the file
-        map.addSource('point', {
-            'type': 'geojson',
-            'data': json
-        });
-        map.addLayer({
-            'id': 'points',
-            'source': 'point',
-            'type': 'circle',
-            'paint': {
-                'circle-radius': 6,
-                'circle-color': '#B42222'
-            }
-        });
 
-    } else {
-
-        //give message
-        jsonInput.getElementById.value = '';
-        jsonInput.getElementById("Not a valid Json file");
-
-    }
-
-});
 
 // Layer Search Event Handlers
 $('#search_general').on('click', function(e) {
@@ -143,8 +113,6 @@ map.on('load', function() {
 map.on('load', function() {
 
     $(document).ready(function() {
-
-
         //clear
         $('#findLLButtonClear').click(function() {
 
@@ -191,9 +159,9 @@ map.on('load', function() {
         });
     });
 });
-//enter Lat Long
-//enter Lat Long
-//enter Lat Long
+//enter Lat Long for nearest neighbour
+//enter Lat Long for nearest neighbour
+//enter Lat Long for nearest neighbour
 map.on('load', function() {
     $(document).ready(function() {
         //clear
@@ -246,6 +214,11 @@ function addPolygon(json) {
     return enveloped;
 }
 
+function randomNumber() {
+    num = Math.floor(Math.random() * 999);
+    return num;
+}
+
 function addPolygonLayer(data) {
     map.addSource('national-park', {
         'type': 'geojson',
@@ -270,7 +243,7 @@ var draws = new MapboxDraw({
         trash: true
     }
 });
-map.addControl(draws);
+// map.addControl(draws);
 var drawing = document.getElementById('drawAppend2');
 drawing.appendChild(draws.onAdd(map)).setAttribute("style", "display: inline-flex;", "border: 0;");
 map.on('draw.create', updateArea);
@@ -299,7 +272,46 @@ function updateArea(e) {
             });
         })
 }
-
+// processing file from text area
+// processing file from text area
+// processing file from text area
+$("#submitFile").click(function(event) {
+    // var json = JSON.stringify(eval("(" + jsonInput + ")")); // Add an image to use as a custom marker 
+    //if (/^[\],:{}\s]*$/.test(jsonInput.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png', function(error, image) {
+    //  if (error) throw error;
+    if (json_validator(jsonInput)) {
+        map.addImage('custom-marker', image); // Add a GeoJSON source
+        with(points) //for eachItem in jsonInput 
+        map.addSource('points', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': [{ // feature for Mapbox DC
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [lng, lat]
+                    },
+                    'properties': {
+                        'title': 'Mapbox DC'
+                    }
+                }, { // feature for Mapbox SF 
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [lng, lat]
+                    },
+                    'properties': {
+                        'title': 'Mapbox SF'
+                    }
+                }]
+            }
+        })
+    } else { //give message
+        jsonInput.getElementById.value = '';
+        jsonInput.getElementById("Not a valid Json file");
+    }
+});
 // Coordinates Tool
 // Coordinates Tool
 // Coordinates Tool

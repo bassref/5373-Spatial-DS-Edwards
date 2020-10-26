@@ -67,6 +67,13 @@
         bottom: auto;
         width: auto;
     }
+    #deleteLayers {
+        position: absolute;
+        left: 0px;
+        right: auto;
+        bottom: auto;
+        width: auto;
+    }
 }
 
 #menu {
@@ -80,7 +87,7 @@
 
 #menu a {
     font-size: 14px;
-    color: #484848;
+    color: #e6e3bd;
     display: block;
     margin: 0;
     padding: 4px;

@@ -209,12 +209,12 @@ def intersection(left, bottom, right, top ):
        "features":[]
     }
    
-    intersection = list(idx.intersection(( left, bottom, right, top )))
-    print (intersection)
+    Presentintersection = list(idx.intersection(( left, bottom, right, top )))
+    print (Presentintersection)
     intersectionList = []
     # add the information needed to a list
     # to create a json file
-    for item in nearest:
+    for item in Presentintersection:
         intersectionList.append({
             'type':'Feature',
             'geometry':rtreeid[item]['geometry'],
@@ -480,6 +480,13 @@ def railroads():
                 railroadsCollection["geometry"]["coordinates"] = results
     return railroadsCollection
 
+def json_validator(data):
+    try:
+        json.loads(data)
+        return True
+    except ValueError as error:
+        print("invalid json: %s" % error)
+        return False
 
 
 
