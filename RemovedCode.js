@@ -1892,3 +1892,28 @@ $.ajax({
     }
 
 });
+map.addSource('points', {
+    'type': 'geojson',
+    'data': {
+        'type': 'FeatureCollection',
+        'features': [{ // feature for Mapbox DC
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [lng, lat]
+            },
+            'properties': {
+                'title': 'Mapbox DC'
+            }
+        }, { // feature for Mapbox SF 
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [lng, lat]
+            },
+            'properties': {
+                'title': 'Mapbox SF'
+            }
+        }]
+    }
+})

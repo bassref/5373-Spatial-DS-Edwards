@@ -275,41 +275,47 @@ function updateArea(e) {
 // processing file from text area
 // processing file from text area
 // processing file from text area
+function isJsonString(str) {
+    try {
+        console.log("tried to pares");
+        var parsed = JSON.parse(str);
+
+
+    } catch (e) {
+        console.log("failed");
+        return 'false';
+    }
+    return parsed;
+}
+// var textInfo = document.getElementById('jsonInput').value;
 $("#submitFile").click(function(event) {
-    // var json = JSON.stringify(eval("(" + jsonInput + ")")); // Add an image to use as a custom marker 
-    //if (/^[\],:{}\s]*$/.test(jsonInput.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png', function(error, image) {
-    //  if (error) throw error;
-    if (json_validator(jsonInput)) {
-        map.addImage('custom-marker', image); // Add a GeoJSON source
-        with(points) //for eachItem in jsonInput 
-        map.addSource('points', {
+    var textInfo = $("#jsonInput").val();
+    jsonInputReformatted = textInfo.replace('\'', '\"');
+    console.log(jsonInputReformatted);
+    var parsedjson = isJsonString(jsonInputReformatted)
+    console.log(typeof parsedjson)
+
+    if (parsedjson = !false) {
+        //map.addImage('custom-marker', image);
+        // Add a GeoJSON source
+        //with(points) //for eachItem in jsonInput 
+        map.addSource('point', {
             'type': 'geojson',
-            'data': {
-                'type': 'FeatureCollection',
-                'features': [{ // feature for Mapbox DC
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': [lng, lat]
-                    },
-                    'properties': {
-                        'title': 'Mapbox DC'
-                    }
-                }, { // feature for Mapbox SF 
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': [lng, lat]
-                    },
-                    'properties': {
-                        'title': 'Mapbox SF'
-                    }
-                }]
+            'data': parsedjson
+        });
+        map.addLayer({
+            'id': 'points',
+            'source': 'point',
+            'type': 'circle',
+            'paint': {
+                'circle-radius': 6,
+                'circle-color': '#B42222'
             }
-        })
+        });
     } else { //give message
-        jsonInput.getElementById.value = '';
-        jsonInput.getElementById("Not a valid Json file");
+        var wrongFileTypeMsg = "Not a valid Json file";
+        document.getElementById("jsonInput").value = '';
+        document.getElementById("jsonInput").value = wrongFileTypeMsg;
     }
 });
 // Coordinates Tool
