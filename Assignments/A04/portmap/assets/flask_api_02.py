@@ -18,6 +18,8 @@ from misc_functions import haversine, bearing
 import base64
 import math
 from rtree import index
+import networkx as nx
+import matplotlib.pyplot as plt
 
 
 
@@ -267,6 +269,9 @@ STATE_BBOXS = load_data("Data/us_states_bbox.csv")
 CITIES = load_data("Data/countries_states/major_cities.geojson")
 RAILROADS = load_data("Data/us_railroads/us_railroads_with_states0.geojson/us_railroads_with_states0.geojson")
 CONSTELLS = load_data("Data/constellations.json")
+primaryRoads = 'Data\primaryRoads.shp'
+graphFromShapeFile = nx.read_shp(primaryRoads, simplify=False,geom_attrs=True, strict=True)  
+G = graphFromShapeFile.to_undirected()
 
 """
    ____   ___  _   _ _____ _____ ____  
