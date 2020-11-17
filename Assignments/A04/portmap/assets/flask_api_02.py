@@ -251,7 +251,19 @@ def constellationList():
     # convert into JSON:
     convertedJson = json.dumps(constellationCollection)
     # returns a JSON file
-    return convertedJson   
+    return convertedJson  
+
+
+def findRoute(lng,lat,lng,lat):
+    answerCollection = {
+        "type":"FeatureCollection",
+       "features":[]
+    }
+    results= []
+    lngLat = nearestRoad(lng,lat)
+    lngLat2 = nearestRoad(lng2, lat2)
+    path
+
 
 """
   ____    _  _____  _      ____    _    ____ _  _______ _   _ ____
